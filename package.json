@@ -9,14 +9,25 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@alicloud/pop-core": "^1.7.13",
+    "ali-oss": "^6.21.0",
+    "canvas-confetti": "^1.9.3",
+    "firebase": "^11.0.2",
+    "lucide-react": "^0.460.0",
+    "mysql2": "^3.11.4",
+    "next": "15.0.3",
+    "proxy-agent": "^5.0.0",
     "react": "19.0.0-rc-66855b96-20241106",
     "react-dom": "19.0.0-rc-66855b96-20241106",
-    "next": "15.0.3"
+    "urllib": "^4.4.0"
   },
   "devDependencies": {
+    "@types/ali-oss": "^6.16.11",
+    "eslint": "^8",
+    "eslint-config-next": "15.0.3",
+    "firebase-admin": "^13.0.1",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
-    "eslint": "^8",
-    "eslint-config-next": "15.0.3"
+    "typescript": "^5.7.2"
   }
 }
