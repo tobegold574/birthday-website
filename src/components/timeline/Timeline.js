@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import Image from 'next/image';
-import ImageModal from "@/components/timeline/ImageModal";
 // 单个事件卡片组件
 const TimelineEvent = ({ event, isLeft, index }) => {
     const [imageError, setImageError] = useState(false);
