@@ -1,16 +1,57 @@
 import mysql from 'mysql2/promise';
 import { dbConfig } from './alicloud';
 
+
+const getConfig = () => {
+    // 根据环境返回不同配置
+    const baseConfig = {
+        host: process.env.MYSQL_HOST,
+        user: process.env.MYSQL_USER,
+        password: process.env.MYSQL_PASSWORD,
+        database: process.env.MYSQL_DATABASE,
+    };
+
+    if (process.env.NODE_ENV === 'production') {
+        // 生产环境添加额外配置
+        return {
+            ...baseConfig,
+            ssl: {
+                rejectUnauthorized: false
+            },
+            connectTimeout: 60000,
+            // 连接池设置
+            waitForConnections: true,
+            connectionLimit: 10,
+            queueLimit: 0,
+        };
+    }
+
+    // 开发环境配置
+    return {
+        ...baseConfig,
+        // 开发环境可以禁用SSL
+        ssl: false
+    };
+};
+
 // 创建连接池
-const pool = mysql.createPool({
-    host: dbConfig.mysql.host,
-    user: dbConfig.mysql.user,
-    password: dbConfig.mysql.password,
-    database: dbConfig.mysql.database,
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0,
-});
+const pool = mysql.createPool(getConfig());
+
+// 导出连接测试函数
+export async function testConnection() {
+    let connection;
+    try {
+        connection = await pool.getConnection();
+        console.log('Database connected successfully');
+        await connection.query('SELECT 1');
+        return true;
+    } catch (error) {
+        console.error('Database connection failed:', error);
+        throw error;
+    } finally {
+        if (connection) connection.release();
+    }
+}
 
 // src/lib/db.js
 export async function saveMessage({ author, content }) {
