@@ -1254,6 +1254,23 @@ binary-extensions@^2.0.0:
   resolved "https://mirrors.cloud.tencent.com/npm/binary-extensions/-/binary-extensions-2.3.0.tgz"
   integrity sha512-Ceh+7ox5qe7LJuLHoY0feh3pHuUDHAcRUeyL2VYghZwfpkNIy/+8Ocg0a3UuSoYzavmylwuLWQOf3hl0jjMMIw==
 
+"birthday-website@file:":
+  version "0.1.0"
+  resolved "file:"
+  dependencies:
+    "@alicloud/pop-core" "^1.7.13"
+    ali-oss "^6.21.0"
+    birthday-website "file:"
+    canvas-confetti "^1.9.3"
+    firebase "^11.0.2"
+    lucide-react "^0.460.0"
+    mysql2 "^3.11.4"
+    next "15.0.3"
+    proxy-agent "^5.0.0"
+    react "19.0.0-rc-66855b96-20241106"
+    react-dom "19.0.0-rc-66855b96-20241106"
+    urllib "^4.4.0"
+
 bowser@^1.6.0:
   version "1.9.4"
   resolved "https://mirrors.cloud.tencent.com/npm/bowser/-/bowser-1.9.4.tgz"

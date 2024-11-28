@@ -3,14 +3,18 @@
 import { useState, useEffect } from 'react';
 import confetti from 'canvas-confetti';
 import './BirthdayCake.css';
-
+import { useMusicContext } from '@/lib/MusicContext';
 const BirthdayCake = () => {
     const [isBlown, setIsBlown] = useState(false);
     const [isDimmed, setIsDimmed] = useState(false);
     const [isWishing, setIsWishing] = useState(false);
     const [countdown, setCountdown] = useState(null);
     const [showWishText, setShowWishText] = useState(false);
-
+    const {
+        pause,
+        play,
+        setIsVisible,
+    } = useMusicContext();
     const triggerConfetti = () => {
         // 创建多彩的碎屑效果
         const count = 200;
@@ -59,9 +63,11 @@ const BirthdayCake = () => {
         setIsWishing(true);
         setIsDimmed(true);
         setShowWishText(true);
-
-        // 开始10秒倒计时
-        let timeLeft = 10;
+        setIsVisible(false); // 隐藏音乐播放器
+        // 如果音乐正在播放，就暂停
+        pause();
+        // 开始30秒倒计时
+        let timeLeft = 30;
         setCountdown(timeLeft);
 
         const timer = setInterval(() => {
@@ -75,6 +81,9 @@ const BirthdayCake = () => {
                 setShowWishText(false);
                 setCountdown(null);
                 triggerConfetti();
+
+                // 恢复显示音乐播放器
+                setIsVisible(true);
 
                 // 吹灭蜡烛
                 setIsBlown(true);

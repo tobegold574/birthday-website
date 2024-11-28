@@ -11,6 +11,7 @@
   "dependencies": {
     "@alicloud/pop-core": "^1.7.13",
     "ali-oss": "^6.21.0",
+    "birthday-website": "file:",
     "canvas-confetti": "^1.9.3",
     "firebase": "^11.0.2",
     "lucide-react": "^0.460.0",
