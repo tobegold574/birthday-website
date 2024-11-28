@@ -1,20 +1,33 @@
 "use client"
 
 import { useState, useEffect } from 'react';
-import { Heart } from 'lucide-react';
+import { Heart, Eye, EyeOff } from 'lucide-react';
 
-const MessageCard = ({ message, onLike }) => {
+const MessageCard = ({ message, onLike, onToggleName }) => {
     return (
         <div className="bg-white/70 backdrop-blur-sm rounded-xl p-6 shadow-lg transform hover:scale-102 transition-all duration-300">
             <div className="flex justify-between items-start">
-                <div>
-                    <p className="font-bold text-[#E25E3E] mb-2">{message.author}</p>
-                    <p className="text-gray-700 mb-4">{message.content}</p>
+                <div className="flex items-center gap-2">
+                    <p className="font-bold text-[#E25E3E]">
+                        {message.showName ? message.author : '*'.repeat(message.author.length)}
+                    </p>
+                    <button
+                        onClick={() => onToggleName(message.id)}
+                        className="text-gray-600 hover:text-gray-800 transition-colors flex items-center"
+                        title={message.showName ? "隐藏留言者姓名" : "显示留言者姓名"}
+                    >
+                        {message.showName ? (
+                            <EyeOff className="w-4 h-4" />
+                        ) : (
+                            <Eye className="w-4 h-4" />
+                        )}
+                    </button>
                 </div>
                 <span className="text-sm text-gray-500">
-          {new Date(message.created_at).toLocaleDateString()}
-        </span>
+                    {new Date(message.created_at).toLocaleDateString()}
+                </span>
             </div>
+            <p className="text-gray-700 my-4">{message.content}</p>
             <div className="flex items-center gap-2">
                 <button
                     onClick={() => onLike(message.id)}
@@ -39,12 +52,10 @@ const MessageWall = () => {
     const [newAuthor, setNewAuthor] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    // 加载留言
     useEffect(() => {
         fetchMessages();
     }, []);
 
-    // 获取留言列表
     const fetchMessages = async () => {
         try {
             const response = await fetch('/api/messages');
@@ -52,7 +63,12 @@ const MessageWall = () => {
                 throw new Error('Failed to fetch messages');
             }
             const data = await response.json();
-            setMessages(data);
+            // 为每条消息添加显示/隐藏状态
+            const messagesWithVisibility = data.map(msg => ({
+                ...msg,
+                showName: false
+            }));
+            setMessages(messagesWithVisibility);
         } catch (err) {
             setError('Failed to load messages');
             console.error('Error fetching messages:', err);
@@ -61,7 +77,6 @@ const MessageWall = () => {
         }
     };
 
-    // 点赞功能
     const handleLike = async (messageId) => {
         try {
             const response = await fetch(`/api/messages/${messageId}/like`, {
@@ -70,7 +85,6 @@ const MessageWall = () => {
             if (!response.ok) {
                 throw new Error('Failed to like message');
             }
-            // 更新本地状态
             setMessages(messages.map(msg =>
                 msg.id === messageId
                     ? { ...msg, likes: msg.likes + 1 }
@@ -81,8 +95,14 @@ const MessageWall = () => {
         }
     };
 
-    // 提交新留言
-    //deprecated
+    const handleToggleName = (messageId) => {
+        setMessages(messages.map(msg =>
+            msg.id === messageId
+                ? { ...msg, showName: !msg.showName }
+                : msg
+        ));
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
@@ -103,11 +123,8 @@ const MessageWall = () => {
                 throw new Error('Failed to submit message');
             }
 
-            // 清空表单
             setNewAuthor('');
             setNewMessage('');
-
-            // 重新加载留言
             await fetchMessages();
 
             alert('留言提交成功，等待审核！');
@@ -141,17 +158,19 @@ const MessageWall = () => {
         );
     }
 
+    const sortedMessages = [...messages].sort((a, b) => b.likes - a.likes);
+
     return (
         <div className="p-8">
-            <div className="max-w-2xl mx-auto space-y-6">
-                {/* 留言展示区域 */}
+            <div className="max-w-2xl mx-auto">
                 <div className="space-y-4">
-                    {messages.length > 0 ? (
-                        messages.map((message) => (
+                    {sortedMessages.length > 0 ? (
+                        sortedMessages.map((message) => (
                             <MessageCard
                                 key={message.id}
                                 message={message}
                                 onLike={handleLike}
+                                onToggleName={handleToggleName}
                             />
                         ))
                     ) : (

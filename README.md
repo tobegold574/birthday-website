@@ -20,12 +20,13 @@
 2.footer可以添加版权信息ok
 3.给timeline和留言墙增加后端，让其他同学也可以写给她留言~ok
 3.5 前端的get请求做链接ok
-4.把留言墙改成tape的形式，匿名ask me anything那种的
+4.把留言墙改成tape的形式，匿名ask me anything那种的ok
 5.（optional）添加真心话大冒险的小游戏
 6.开源时添加关于作者的界面
 7.（necessary）开幕网站时，新增加视频介绍，看完之后可以进入网站
 8.优化事项：歌曲结束播放后需要自动循环，目前没有
-9.添加
+9.debug：上线后oss连接失败的问题
+10. 优化首页界面ok
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
