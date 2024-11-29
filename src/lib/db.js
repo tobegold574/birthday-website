@@ -3,8 +3,6 @@ import mysql from 'mysql2/promise';
 
 
 const getConfig = () => {
-    console.log(process.env.NODE_ENV);
-    console.log(process.env.MYSQL_HOST);
     // 根据环境返回不同配置
     const baseConfig = {
         host: process.env.MYSQL_HOST,

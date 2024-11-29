@@ -46,7 +46,7 @@ export async function GET() {
     } catch (error) {
         console.error('Error fetching messages:', error);
         return NextResponse.json(
-            { error: '获取留言失败' },
+            { error: '获取留言失败，当前环境变量状态为：'+process.env.NODE_ENV+'主机环境变量'+process.env.MYSQL_HOST },
             { status: 500 }
         );
     }

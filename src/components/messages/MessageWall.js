@@ -58,10 +58,12 @@ const MessageWall = () => {
 
     const fetchMessages = async () => {
         try {
-            const response = await fetch('/api/messages');
+            const response = await fetch('/api/timeline');
             if (!response.ok) {
-                throw new Error('Failed to fetch messages');
+                const errorData = await response.json();  // 解析错误响应的 JSON 数据
+                throw new Error(errorData.error);  // 使用返回的 error 字段作为错误信息
             }
+
             const data = await response.json();
             // 为每条消息添加显示/隐藏状态
             const messagesWithVisibility = data.map(msg => ({
