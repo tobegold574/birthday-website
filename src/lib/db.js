@@ -85,8 +85,10 @@ export async function getMessages() {
         const [rows] = await pool.execute(
             'SELECT * FROM messages WHERE is_approved = TRUE ORDER BY created_at DESC'
         );
+        console.log('getting message completed');
         return rows;
     } catch (error) {
+        console.log('getting message...');
         console.error('Error getting messages:', error);
         throw error;
     }
