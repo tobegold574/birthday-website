@@ -3,14 +3,6 @@ const nextConfig = {
     images: {
         domains: ['birthday-website.oss-cn-shanghai.aliyuncs.com'],
     },
-    // 添加环境变量配置
-    env: {
-        MYSQL_HOST: process.env.MYSQL_HOST,
-        MYSQL_USER: process.env.MYSQL_USER,
-        MYSQL_PASSWORD: process.env.MYSQL_PASSWORD,
-        MYSQL_DATABASE: process.env.MYSQL_DATABASE,
-        NEXT_PUBLIC_TITLE: process.env.NEXT_PUBLIC_TITLE
-    },
     // 添加CORS配置
     async headers() {
         return [
