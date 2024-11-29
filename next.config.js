@@ -9,6 +9,7 @@ const nextConfig = {
         MYSQL_USER: process.env.MYSQL_USER,
         MYSQL_PASSWORD: process.env.MYSQL_PASSWORD,
         MYSQL_DATABASE: process.env.MYSQL_DATABASE,
+        NEXT_PUBLIC_TITLE: process.env.NEXT_PUBLIC_TITLE
     },
     // 添加CORS配置
     async headers() {

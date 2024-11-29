@@ -48,7 +48,7 @@ const HomeSection = () => {
                 Happy 20th Birthday! 🎂
               </h1>
               <p className="text-xl text-purple-600 mb-8">
-                愿你的20岁充满欢笑与美好
+              {process.env.NEXT_PUBLIC_TITLE}
               </p>
             </div>
 
