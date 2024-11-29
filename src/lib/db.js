@@ -15,9 +15,7 @@ const getConfig = () => {
         // 生产环境添加额外配置
         return {
             ...baseConfig,
-            ssl: {
-                rejectUnauthorized: false
-            },
+            ssl: false,
             connectTimeout: 60000,
             // 连接池设置
             waitForConnections: true,
